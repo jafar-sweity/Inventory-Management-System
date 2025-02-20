@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Inventory_Management_System.Interfaces
 {
-    class IProduct
+    public interface IProduct
     {
+        string Name { get; set; }
+        decimal Price { get; set; }
+        int QuantityInStock { get; set; }
+        string ToString();
     }
 }
