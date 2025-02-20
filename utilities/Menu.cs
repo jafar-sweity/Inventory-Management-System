@@ -10,7 +10,7 @@ namespace Inventory_Management_System.utilities
     {
         public static void DisplayMenu()
         {
-        
+
             Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════╗");
             Console.WriteLine("║         INVENTORY MANAGEMENT           ║");
@@ -28,5 +28,13 @@ namespace Inventory_Management_System.utilities
             Console.Write("Your choice (1-6): ");
         }
     
+    
+        public static void BackToMenu()
+        {
+            Console.WriteLine("╔════════════════════════════════════════╗");
+            Console.WriteLine("║    press enter to back to Menu         ║");
+            Console.WriteLine("╚════════════════════════════════════════╝");
+            Console.ReadKey();
+        }
     }
 }

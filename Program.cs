@@ -1,24 +1,32 @@
-﻿using Inventory_Management_System.utilities;
+﻿using Inventory_Management_System.models;
+using Inventory_Management_System.operation;
+using Inventory_Management_System.utilities;
 
 public class Program
 {
     public static void Main(string[] args) { 
 
         bool exit = false;
-
+        Inventory inventory = new Inventory();
+        InventoryOpertaion inventoryOpertaion = new InventoryOpertaion(inventory);
 
         while (!exit)
         {
             Menu.DisplayMenu();
-
+            
             string choice = Console.ReadLine();
 
 
             switch(choice)
             {
                 case "1":
+                 inventoryOpertaion.AddProduct();
                     break;
+
                 case "2":
+                  
+
+
                     break;
                 case "3":
                     break;

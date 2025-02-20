@@ -9,9 +9,10 @@ namespace Inventory_Management_System.models
 {
     class Inventory : Iinventory
     {
-        private List<IProduct> _products = new List<IProduct>();
+        private  List<IProduct> _products = new List<IProduct>();
         public void AddProduct(IProduct product)
         {
+            
             _products.Add(product);
         }
         public List<IProduct> GetAllProducts()
