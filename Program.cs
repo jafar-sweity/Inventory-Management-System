@@ -12,6 +12,8 @@ public class Program
 
         while (!exit)
         {
+            Console.ResetColor();
+
             Menu.DisplayMenu();
             
             string choice = Console.ReadLine();
@@ -24,9 +26,7 @@ public class Program
                     break;
 
                 case "2":
-                  
-
-
+                  inventoryOpertaion.viewAllProducts();
                     break;
                 case "3":
                     break;

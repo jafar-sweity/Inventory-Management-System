@@ -12,9 +12,10 @@ namespace Inventory_Management_System.operation
     class InventoryOpertaion
     {
         private readonly Inventory inventory;
-        public InventoryOpertaion(Inventory inventory) {
-        
-        this.inventory = inventory;
+        public InventoryOpertaion(Inventory inventory)
+        {
+
+            this.inventory = inventory;
         }
 
         public void AddProduct()
@@ -42,10 +43,10 @@ namespace Inventory_Management_System.operation
 
             Console.WriteLine("Enter Product Price");
             decimal Price = Convert.ToDecimal(Console.ReadLine());
-            
+
             if (Price <= 0)
             {
-       
+
                 Console.Clear();
                 Console.WriteLine("╔════════════════════════════════════════╗");
                 Console.WriteLine("║  Product Price must be greater than 0  ║");
@@ -62,11 +63,11 @@ namespace Inventory_Management_System.operation
             if (QuantityInStock <= 0)
             {
                 Console.Clear();
-                
+
                 Console.WriteLine("╔════════════════════════════════════════╗");
                 Console.WriteLine("║Product Quantity must be greater than 0 ║");
                 Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
-                  Menu.BackToMenu();
+                Menu.BackToMenu();
             }
             IProduct product = new Product(Name, Price, QuantityInStock);
             inventory.AddProduct(product);
@@ -74,5 +75,26 @@ namespace Inventory_Management_System.operation
 
         }
 
+        public void viewAllProducts()
+        {
+            Console.Clear();
+
+            Console.WriteLine("╔════════════════════════════════════════╗");
+            Console.WriteLine("║         PRINT ALL PRODUCT              ║");
+            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+
+            if (inventory.GetAllProducts().Count == 0)
+            {
+                Console.WriteLine("No Product Found");
+            }
+            else
+            {
+                foreach (var product in inventory.GetAllProducts())
+                {
+                    Console.WriteLine(product.ToString());
+                }
+            }
+            Menu.BackToMenu();
+        }
     }
 }

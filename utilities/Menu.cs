@@ -30,11 +30,13 @@ namespace Inventory_Management_System.utilities
     
     
         public static void BackToMenu()
-        {
-            Console.WriteLine("╔════════════════════════════════════════╗");
+        {   
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n╔════════════════════════════════════════╗");
             Console.WriteLine("║    press enter to back to Menu         ║");
             Console.WriteLine("╚════════════════════════════════════════╝");
             Console.ReadKey();
+            Console.ResetColor();
         }
     }
 }
