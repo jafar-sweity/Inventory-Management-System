@@ -35,6 +35,7 @@ public class Program
                     inventoryOpertaion.DeleteProduct();
                     break;
                 case "5":
+                    inventoryOpertaion.SearchProductByName();
                     break;
                 case "6":
                     exit = true;

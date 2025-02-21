@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Inventory_Management_System.operation
 {
@@ -100,6 +101,9 @@ namespace Inventory_Management_System.operation
         public void DeleteProduct()
         {
             Console.Clear();
+            Console.WriteLine("╔════════════════════════════════════════╗");
+            Console.WriteLine("║            Delete Product              ║");
+            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
 
             Console.WriteLine("Enter Product Name to Delete");
             string Name = Console.ReadLine();
@@ -125,6 +129,39 @@ namespace Inventory_Management_System.operation
             {
                 inventory.DeleteProductByName(Name);
                 Console.WriteLine("Product Deleted Successfully");
+                Menu.BackToMenu();
+
+            }
+        }
+
+        public void SearchProductByName()
+        {
+            Console.WriteLine("╔════════════════════════════════════════╗");
+            Console.WriteLine("║           SEARCH FOR PRODUCT           ║");
+            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+
+            string name = Console.ReadLine();
+            if (string.IsNullOrEmpty(name))
+            {
+                Console.Clear();
+                Console.WriteLine("╔════════════════════════════════════════╗");
+                Console.WriteLine("║    Product Name is required            ║");
+                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+
+                Menu.BackToMenu();
+
+                return;
+
+            }
+            if (inventory.SearchProductByName(name) == null)
+            {
+                Console.WriteLine("Product Not Found");
+                Menu.BackToMenu();
+
+            }
+            else
+            {
+                Console.WriteLine(inventory.SearchProductByName(name));
                 Menu.BackToMenu();
 
             }
