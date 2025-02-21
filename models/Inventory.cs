@@ -26,9 +26,11 @@ namespace Inventory_Management_System.models
 
         public void EditProduct(string name)
         {
+
         }
         public void DeleteProductByName(string name)
         {
+            _products.RemoveAll(product => product.Name == name);
         }
         public IProduct SearchProductByName(string name)
         {

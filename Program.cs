@@ -29,8 +29,10 @@ public class Program
                   inventoryOpertaion.viewAllProducts();
                     break;
                 case "3":
+
                     break;
                 case "4":
+                    inventoryOpertaion.DeleteProduct();
                     break;
                 case "5":
                     break;

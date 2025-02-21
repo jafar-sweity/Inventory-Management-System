@@ -96,5 +96,38 @@ namespace Inventory_Management_System.operation
             }
             Menu.BackToMenu();
         }
+
+        public void DeleteProduct()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Enter Product Name to Delete");
+            string Name = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                Console.Clear();
+                Console.WriteLine("╔════════════════════════════════════════╗");
+                Console.WriteLine("║    Product Name is required            ║");
+                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+
+                Menu.BackToMenu();
+
+                return;
+            }
+            if(inventory.SearchProductByName(Name)==null)
+            {
+                Console.WriteLine("Product Not Found");
+                Menu.BackToMenu();
+
+            }
+            else
+            {
+                inventory.DeleteProductByName(Name);
+                Console.WriteLine("Product Deleted Successfully");
+                Menu.BackToMenu();
+
+            }
+        }
     }
-}
+    }
