@@ -27,16 +27,24 @@ namespace Inventory_Management_System.utilities
             Console.WriteLine("\n--------------------------------------------");
             Console.Write("Your choice (1-6): ");
         }
-    
-    
+
+
         public static void BackToMenu()
-        {   
+        {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n╔════════════════════════════════════════╗");
             Console.WriteLine("║    press enter to back to Menu         ║");
             Console.WriteLine("╚════════════════════════════════════════╝");
             Console.ReadKey();
             Console.ResetColor();
+        }
+
+        public static void PrintTitle(string title)
+        {
+            Console.Clear();
+            Console.WriteLine("╔════════════════════════════════════════");
+            Console.WriteLine($"║              {title}               ");
+            Console.WriteLine("╚════════════════════════════════════════");
         }
     }
 }

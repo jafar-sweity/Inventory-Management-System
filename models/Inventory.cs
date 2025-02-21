@@ -19,14 +19,11 @@ namespace Inventory_Management_System.models
         {
             return _products;
         }
-        public void RemoveProduct(string name)
-        {
-
-        }
+      
 
         public void EditProduct(string name)
         {
-
+            // if fie
         }
         public void DeleteProductByName(string name)
         {

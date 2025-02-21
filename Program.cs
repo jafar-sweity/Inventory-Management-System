@@ -29,7 +29,7 @@ public class Program
                   inventoryOpertaion.viewAllProducts();
                     break;
                 case "3":
-
+                    inventoryOpertaion.EditProduct();
                     break;
                 case "4":
                     inventoryOpertaion.DeleteProduct();

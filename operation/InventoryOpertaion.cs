@@ -21,10 +21,8 @@ namespace Inventory_Management_System.operation
 
         public void AddProduct()
         {
-            Console.Clear();
-            Console.WriteLine("╔════════════════════════════════════════╗");
-            Console.WriteLine("║              ADD PRODUCT               ║");
-            Console.WriteLine("╚════════════════════════════════════════╝");
+
+            Menu.PrintTitle("ADD PRODUCT ");
 
             Console.WriteLine("Enter Product Name");
             string Name = Console.ReadLine();
@@ -32,11 +30,7 @@ namespace Inventory_Management_System.operation
             // lets check the name validation
             if (string.IsNullOrEmpty(Name))
             {
-                Console.Clear();
-                Console.WriteLine("╔════════════════════════════════════════╗");
-                Console.WriteLine("║    Product Name is required            ║");
-                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
-
+                Menu.PrintTitle("Prodcut Name Is Required");
                 Menu.BackToMenu();
 
                 return;
@@ -47,14 +41,8 @@ namespace Inventory_Management_System.operation
 
             if (Price <= 0)
             {
-
-                Console.Clear();
-                Console.WriteLine("╔════════════════════════════════════════╗");
-                Console.WriteLine("║  Product Price must be greater than 0  ║");
-                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
-
+                Menu.PrintTitle("Product Price must be greater than 0");
                 Menu.BackToMenu();
-
                 return;
             }
             Console.WriteLine(
@@ -63,11 +51,7 @@ namespace Inventory_Management_System.operation
             int QuantityInStock = Convert.ToInt32(Console.ReadLine());
             if (QuantityInStock <= 0)
             {
-                Console.Clear();
-
-                Console.WriteLine("╔════════════════════════════════════════╗");
-                Console.WriteLine("║Product Quantity must be greater than 0 ║");
-                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+                Menu.PrintTitle("Product Quantity must be greater than 0");
                 Menu.BackToMenu();
             }
             IProduct product = new Product(Name, Price, QuantityInStock);
@@ -78,15 +62,11 @@ namespace Inventory_Management_System.operation
 
         public void viewAllProducts()
         {
-            Console.Clear();
-
-            Console.WriteLine("╔════════════════════════════════════════╗");
-            Console.WriteLine("║         PRINT ALL PRODUCT              ║");
-            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+            Menu.PrintTitle("PRINT ALL PRODUCTS");
 
             if (inventory.GetAllProducts().Count == 0)
             {
-                Console.WriteLine("No Product Found");
+                Console.WriteLine("No Products Found");
             }
             else
             {
@@ -100,26 +80,20 @@ namespace Inventory_Management_System.operation
 
         public void DeleteProduct()
         {
-            Console.Clear();
-            Console.WriteLine("╔════════════════════════════════════════╗");
-            Console.WriteLine("║            Delete Product              ║");
-            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
-
+            Menu.PrintTitle("DELETE PRODUCT");
             Console.WriteLine("Enter Product Name to Delete");
             string Name = Console.ReadLine();
 
             if (string.IsNullOrEmpty(Name))
             {
-                Console.Clear();
-                Console.WriteLine("╔════════════════════════════════════════╗");
-                Console.WriteLine("║    Product Name is required            ║");
-                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+               
+                Menu.PrintTitle("Prodcut Name Is Required");
 
                 Menu.BackToMenu();
 
                 return;
             }
-            if(inventory.SearchProductByName(Name)==null)
+            if (inventory.SearchProductByName(Name) == null)
             {
                 Console.WriteLine("Product Not Found");
                 Menu.BackToMenu();
@@ -136,35 +110,121 @@ namespace Inventory_Management_System.operation
 
         public void SearchProductByName()
         {
-            Console.WriteLine("╔════════════════════════════════════════╗");
-            Console.WriteLine("║           SEARCH FOR PRODUCT           ║");
-            Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
+            Menu.PrintTitle("SEARCH FOR PRODUCT");
 
             string name = Console.ReadLine();
             if (string.IsNullOrEmpty(name))
             {
-                Console.Clear();
-                Console.WriteLine("╔════════════════════════════════════════╗");
-                Console.WriteLine("║    Product Name is required            ║");
-                Console.WriteLine("╚════════════════════════════════════════╝\n\n\n");
-
+                Menu.PrintTitle("Prodcut Name Is Required");
                 Menu.BackToMenu();
-
                 return;
-
             }
             if (inventory.SearchProductByName(name) == null)
             {
                 Console.WriteLine("Product Not Found");
                 Menu.BackToMenu();
-
             }
             else
             {
                 Console.WriteLine(inventory.SearchProductByName(name));
                 Menu.BackToMenu();
-
+                
             }
+        }
+
+        public void EditProduct()
+        {
+            Menu.PrintTitle("EDIT PRODUCT");
+            Console.WriteLine("Enter Product Name to Edit");
+            string Name = Console.ReadLine();
+            if (string.IsNullOrEmpty(Name))
+            {
+                Menu.PrintTitle("Prodcut Name Is Required");
+                Menu.BackToMenu();
+                return;
+            }
+
+        
+            IProduct product = inventory.SearchProductByName(Name);
+
+            if (product == null)
+            {
+                Console.WriteLine(
+                    "Product Not Found"
+                );
+                Menu.BackToMenu();
+                return;
+            }
+
+            bool isEditing = true;
+
+            while (isEditing)
+            {
+                Console.Clear();
+                Console.WriteLine("Enter 1 to Edit Name");
+                Console.WriteLine("Enter 2 to Edit Price");
+                Console.WriteLine("Enter 3 to Edit Quantity in Stock");
+                Console.WriteLine("Enter 4 to Exit");
+                Console.WriteLine("Enter your choice");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter New Name");
+                        string newName = Console.ReadLine();
+                        if (string.IsNullOrEmpty(newName))
+                        {
+                            Menu.PrintTitle("Prodcut Name Is Required");
+                            Menu.BackToMenu();
+                            return;
+                        }
+                        product.Name = newName;
+                        Console.WriteLine("Name Updated Successfully");
+
+                        Console.ReadKey();
+
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter New Price");
+                        decimal newPrice = Convert.ToDecimal(Console.ReadLine());
+                        if (newPrice <= 0)
+                        {
+                            Menu.PrintTitle("Product Price must be greater than 0");
+                            Menu.BackToMenu();
+                            return;
+                        }
+                        product.Price = newPrice;
+                        Console.WriteLine("Price Updated Successfully");
+                        Console.ReadKey();
+
+                        break;
+                    case 3:
+                        Console.WriteLine("Enter New Quantity in Stock");
+                        int newQuantityInStock = Convert.ToInt32(Console.ReadLine());
+                        if (newQuantityInStock <= 0)
+                        {
+                            Menu.PrintTitle("Product Quantity must be greater than 0");
+                            Menu.BackToMenu();
+                            return;
+                        }
+                        product.QuantityInStock = newQuantityInStock;
+                        Console.WriteLine("Quantity in Stock Updated Successfully");
+                        Console.ReadKey();
+
+                        break;
+                    case 4:
+                        isEditing = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Choice");
+                        Console.ReadKey();
+
+                        break;
+                }
+            }
+
+
+
         }
     }
     }
