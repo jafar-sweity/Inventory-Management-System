@@ -1,29 +1,19 @@
-﻿using System;
+﻿using Inventory_Management_System.models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Inventory_Management_System.Interfaces
 {
-    public interface Iinventory
+    public interface IInventory
     {
-        // add new product
-        void AddProduct(IProduct product);
-
-        //  retrieve All Porducts 
-        List<IProduct> GetAllProducts();
-
-        //  Edit the product 
-
-        void EditProduct(string name);
-
-        // Search for a product by name 
-        IProduct SearchProductByName(string name);
-
-        // Delete product by name
+        void AddProduct(Product product);
+        List<Product> GetAllProducts();
+        int Count();  // Added a Count method for efficiency
+        Product SearchProductByName(string name);
         void DeleteProductByName(string name);
 
-
+        // Separate methods for editing product properties
+        bool EditProductName(Product product, string newName);
+        bool EditProductPrice(Product product, decimal newPrice);
+        bool EditProductQuantity(Product product, int newQuantity);
     }
 }

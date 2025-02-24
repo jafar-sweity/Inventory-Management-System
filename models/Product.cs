@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Inventory_Management_System.models
 {
-    class Product : IProduct 
+    public class Product  
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
@@ -18,6 +18,7 @@ namespace Inventory_Management_System.models
             Price = price;
             QuantityInStock = quantityInStock;
         }
+
         public override string ToString()
         {
             return $"Name: {Name} | Price: {Price} |  Quantity in Stock: {QuantityInStock}";

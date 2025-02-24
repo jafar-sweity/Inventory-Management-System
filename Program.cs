@@ -8,7 +8,7 @@ public class Program
 
         bool exit = false;
         Inventory inventory = new Inventory();
-        InventoryOpertaion inventoryOpertaion = new InventoryOpertaion(inventory);
+        InventoryOperation inventoryOpertaion = new InventoryOperation(inventory);
 
         while (!exit)
         {
@@ -26,7 +26,7 @@ public class Program
                     break;
 
                 case "2":
-                  inventoryOpertaion.viewAllProducts();
+                  inventoryOpertaion.ViewAllProducts();
                     break;
                 case "3":
                     inventoryOpertaion.EditProduct();
