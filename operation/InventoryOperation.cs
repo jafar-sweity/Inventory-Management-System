@@ -1,6 +1,7 @@
 ﻿using Inventory_Management_System.Interfaces;
 using Inventory_Management_System.models;
 using Inventory_Management_System.utilities;
+using Inventory_Management_System.Validation;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace Inventory_Management_System.operation
     {
         private readonly Inventory _inventory;
         public InventoryOperation(Inventory inventory) => _inventory = inventory;
+
         public void AddProduct()
         {
             Menu.PrintTitle("ADD PRODUCT");
@@ -24,16 +26,17 @@ namespace Inventory_Management_System.operation
             if (quantityInStock == null) return;
 
             _inventory.AddProduct(new Product(name, price.Value, quantityInStock.Value));
+            Menu.PrintTitle(SuccessMessages.ProductAdded);
         }
 
         public void ViewAllProducts()
         {
             Menu.PrintTitle("ALL PRODUCTS");
 
-            var products = _inventory.GetAllProducts(); // Store the result instead of calling twice
+            var products = _inventory.GetAllProducts();
             if (products.Count == 0)
             {
-                Console.WriteLine("No Products Found");
+                Menu.PrintTitle(ErrorMessages.NoProductsFound);
                 Menu.BackToMenu();
                 return;
             }
@@ -52,13 +55,13 @@ namespace Inventory_Management_System.operation
             var product = _inventory.SearchProductByName(name);
             if (product == null)
             {
-                Console.WriteLine("Product Not Found");
+                Menu.PrintTitle(ErrorMessages.ProductNotFound);
                 Menu.BackToMenu();
                 return;
             }
 
             _inventory.DeleteProductByName(name);
-            Console.WriteLine("Product Deleted Successfully");
+            Menu.PrintTitle(SuccessMessages.ProductDeleted);
             Menu.BackToMenu();
         }
 
@@ -72,7 +75,7 @@ namespace Inventory_Management_System.operation
             var product = _inventory.SearchProductByName(name);
             if (product == null)
             {
-                Console.WriteLine("Product Not Found");
+                Menu.PrintTitle(ErrorMessages.ProductNotFound);
             }
             else
             {
@@ -91,7 +94,7 @@ namespace Inventory_Management_System.operation
             var product = _inventory.SearchProductByName(name);
             if (product == null)
             {
-                Console.WriteLine("Product Not Found");
+                Menu.PrintTitle(ErrorMessages.ProductNotFound);
                 Menu.BackToMenu();
                 return;
             }
@@ -107,7 +110,7 @@ namespace Inventory_Management_System.operation
 
                 if (!int.TryParse(Console.ReadLine(), out var choice))
                 {
-                    Console.WriteLine("Invalid Choice! Enter a number.");
+                    Menu.PrintTitle(ErrorMessages.InvalidChoice);
                     Console.ReadKey();
                     continue;
                 }
@@ -118,36 +121,36 @@ namespace Inventory_Management_System.operation
                         var newName = ReadValidName();
                         if (newName == null) return;
                         _inventory.EditProductName(product, newName);
-                        Console.WriteLine("Name Updated Successfully");
+                        Menu.PrintTitle(SuccessMessages.NameUpdated);
                         break;
 
                     case 2:
                         var newPrice = ReadValidDecimal("Enter New Price: ");
                         if (newPrice == null) return;
                         _inventory.EditProductPrice(product, newPrice.Value);
-                        Console.WriteLine("Price Updated Successfully");
+                        Menu.PrintTitle(SuccessMessages.PriceUpdated);
                         break;
 
                     case 3:
                         var newQuantity = ReadValidInt("Enter New Quantity in Stock: ");
                         if (newQuantity == null) return;
                         _inventory.EditProductQuantity(product, newQuantity.Value);
-                        Console.WriteLine("Quantity Updated Successfully");
+                        Menu.PrintTitle(SuccessMessages.QuantityUpdated);
                         break;
 
                     case 4:
-                        Menu.PrintTitle("Product updated successfully");
+                        Menu.PrintTitle(SuccessMessages.ProductUpdated);
                         Console.ReadKey();
                         return;
 
                     default:
-                        Console.WriteLine("Invalid Choice");
+                        Menu.PrintTitle(ErrorMessages.InvalidChoice);
                         break;
                 }
                 Console.ReadKey();
             }
         }
-
+    
         /// <summary>
         /// Reads and validates a non-empty product name.
         /// </summary>
@@ -155,12 +158,10 @@ namespace Inventory_Management_System.operation
         {
             Console.Write("Enter Product Name: ");
             var name = Console.ReadLine();
-            if (string.IsNullOrEmpty(name))
-            {
-                Menu.PrintTitle("Product Name Is Required");
-                Menu.BackToMenu();
+
+            if (!ProductValidator.ValidateName(name))
                 return null;
-            }
+
             return name;
         }
 
@@ -171,12 +172,10 @@ namespace Inventory_Management_System.operation
         {
             Console.Write(message);
             var isValidDecimal = decimal.TryParse(Console.ReadLine(), out var value);
-            if (!isValidDecimal || value <= 0)
-            {
-                Menu.PrintTitle("Invalid input! Must be a number greater than 0.");
-                Menu.BackToMenu();
+
+            if (!isValidDecimal || !ProductValidator.ValidatePrice(value))
                 return null;
-            }
+
             return value;
         }
 
@@ -187,12 +186,10 @@ namespace Inventory_Management_System.operation
         {
             Console.Write(message);
             var isValidInt = int.TryParse(Console.ReadLine(), out var value);
-            if (!isValidInt || value <= 0)
-            {
-                Menu.PrintTitle("Invalid input! Must be a positive integer.");
-                Menu.BackToMenu();
+
+            if (!isValidInt || !ProductValidator.ValidateQuantity(value))
                 return null;
-            }
+
             return value;
         }
     }

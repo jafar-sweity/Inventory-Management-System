@@ -7,7 +7,7 @@ namespace Inventory_Management_System.Interfaces
     {
         void AddProduct(Product product);
         List<Product> GetAllProducts();
-        int Count();  // Added a Count method for efficiency
+        int Count();  
         Product SearchProductByName(string name);
         void DeleteProductByName(string name);
 

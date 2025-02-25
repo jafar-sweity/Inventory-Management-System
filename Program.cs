@@ -6,19 +6,18 @@ public class Program
 {
     public static void Main(string[] args) { 
 
-        bool exit = false;
+        
         Inventory inventory = new Inventory();
         InventoryOperation inventoryOpertaion = new InventoryOperation(inventory);
 
+        bool exit = false;
         while (!exit)
         {
             Console.ResetColor();
 
             Menu.DisplayMenu();
-            
+
             string choice = Console.ReadLine();
-
-
             switch(choice)
             {
                 case "1":

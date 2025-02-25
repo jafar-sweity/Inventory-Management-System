@@ -16,7 +16,7 @@ namespace Inventory_Management_System.models
 
         public List<Product> GetAllProducts() => _products;
 
-        public int Count() => _products.Count; // New method to count products
+        public int Count() => _products.Count; 
 
         public Product SearchProductByName(string name)
         {
@@ -47,10 +47,16 @@ namespace Inventory_Management_System.models
 
         public bool EditProductQuantity(Product product, int newQuantity)
         {
-            if (newQuantity <= 0) return false;
+            if (newQuantity <= 0)
+            {
+                return false;
+            }
 
             var productToEdit = SearchProductByName(product.Name);
-            if (productToEdit == null) return false;
+            if (productToEdit == null)
+            {
+                return false;
+            }
 
             productToEdit.QuantityInStock = newQuantity;
             return true;
