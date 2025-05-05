@@ -1,8 +1,5 @@
 ﻿using Inventory_Management_System.Interfaces;
 using Inventory_Management_System.models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Inventory_Management_System
 {
