@@ -2,7 +2,7 @@
 using Inventory_Management_System.models;
 using System.Data.SqlClient;
 
-namespace Inventory_Management_System.Models
+namespace Inventory_Management_System_with_DB.Repositories
 {
     public class InventorySQL : IInventory
     {

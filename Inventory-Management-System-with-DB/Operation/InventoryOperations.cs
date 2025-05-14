@@ -15,13 +15,21 @@ namespace Inventory_Management_System
         public async Task AddProductAsync()
         {
             Console.Write("Enter product name: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.Write("Enter price: ");
-            decimal price = decimal.Parse(Console.ReadLine());
+            if (!decimal.TryParse(Console.ReadLine(), out var price))
+            {
+                Console.WriteLine("Invalid price input.");
+                return;
+            }
 
             Console.Write("Enter quantity: ");
-            int quantity = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out var quantity))
+            {
+                Console.WriteLine("Invalid quantity input.");
+                return;
+            }
 
             var product = new Product(name, price, quantity);
             await _inventory.AddProduct(product);
@@ -30,7 +38,7 @@ namespace Inventory_Management_System
 
         public async Task ViewAllProductsAsync()
         {
-            List<Product> products = await _inventory.GetAllProducts();
+            var products = await _inventory.GetAllProducts();
 
             if (products.Count == 0)
             {
@@ -40,41 +48,38 @@ namespace Inventory_Management_System
 
             Console.WriteLine("Available Products:");
             foreach (var product in products)
-            {
                 Console.WriteLine(product);
-            }
         }
 
         public async Task CountProductsAsync()
         {
-            int count = await _inventory.Count();
+            var count = await _inventory.Count();
             Console.WriteLine($"Total number of products: {count}");
         }
 
         public async Task SearchProductAsync()
         {
             Console.Write("Enter product name to search: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
-            Product product = await _inventory.SearchProductByName(name);
+            var product = await _inventory.SearchProductByName(name);
 
             if (product == null)
             {
                 Console.WriteLine("Product not found.");
+                return;
             }
-            else
-            {
-                Console.WriteLine("Product found:");
-                Console.WriteLine(product);
-            }
+
+            Console.WriteLine("Product found:");
+            Console.WriteLine(product);
         }
 
         public async Task EditProductNameAsync()
         {
             Console.Write("Enter product name to edit: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
-            Product product = await _inventory.SearchProductByName(name);
+            var product = await _inventory.SearchProductByName(name);
             if (product == null)
             {
                 Console.WriteLine("Product not found.");
@@ -82,18 +87,18 @@ namespace Inventory_Management_System
             }
 
             Console.Write("Enter new product name: ");
-            string newName = Console.ReadLine();
+            var newName = Console.ReadLine();
 
-            bool updated = await _inventory.EditProductName(product, newName);
+            var updated = await _inventory.EditProductName(product, newName);
             Console.WriteLine(updated ? "Product name updated." : "Update failed.");
         }
 
         public async Task EditProductPriceAsync()
         {
             Console.Write("Enter product name to edit: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
-            Product product = await _inventory.SearchProductByName(name);
+            var product = await _inventory.SearchProductByName(name);
             if (product == null)
             {
                 Console.WriteLine("Product not found.");
@@ -101,18 +106,22 @@ namespace Inventory_Management_System
             }
 
             Console.Write("Enter new price: ");
-            decimal newPrice = decimal.Parse(Console.ReadLine());
+            if (!decimal.TryParse(Console.ReadLine(), out var newPrice))
+            {
+                Console.WriteLine("Invalid price input.");
+                return;
+            }
 
-            bool updated = await _inventory.EditProductPrice(product, newPrice);
+            var updated = await _inventory.EditProductPrice(product, newPrice);
             Console.WriteLine(updated ? "Product price updated." : "Update failed.");
         }
 
         public async Task EditProductQuantityAsync()
         {
             Console.Write("Enter product name to edit: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
-            Product product = await _inventory.SearchProductByName(name);
+            var product = await _inventory.SearchProductByName(name);
             if (product == null)
             {
                 Console.WriteLine("Product not found.");
@@ -120,16 +129,20 @@ namespace Inventory_Management_System
             }
 
             Console.Write("Enter new quantity: ");
-            int newQty = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out var newQty))
+            {
+                Console.WriteLine("Invalid quantity input.");
+                return;
+            }
 
-            bool updated = await _inventory.EditProductQuantity(product, newQty);
+            var updated = await _inventory.EditProductQuantity(product, newQty);
             Console.WriteLine(updated ? "Product quantity updated." : "Update failed.");
         }
 
         public async Task DeleteProductAsync()
         {
             Console.Write("Enter product name to delete: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             try
             {

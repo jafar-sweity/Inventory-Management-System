@@ -1,9 +1,9 @@
-﻿
-using Inventory_Management_System;
+﻿using Inventory_Management_System;
 using Inventory_Management_System.Interfaces;
 using Inventory_Management_System.Models;
 using Inventory_Management_System_with_DB.DataBaseConnection;
 using Inventory_Management_System_with_DB.DataBaseInitializer;
+using Inventory_Management_System_with_DB.models;
 using Inventory_Management_System_with_DB.Utilities;
 
 class Program
@@ -23,7 +23,7 @@ class Program
                 inventory = new InventorySQL(SQLMSConnection.ConnectionString);
                 break;
             case "2":
-                //inventory = new InventoryMongoDB();
+                inventory = new InventoryMongoDB();
                 break;
             default:
                 Console.WriteLine("Invalid choice. Defaulting to SQL Inventory.");

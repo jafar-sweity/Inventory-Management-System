@@ -4,7 +4,7 @@ using Inventory_Management_System_with_DB.DataBaseConnection;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Inventory_Management_System_with_DB.models
+namespace Inventory_Management_System_with_DB.Repositories
 {
     public class InventoryMongoDB : IInventory
     {
